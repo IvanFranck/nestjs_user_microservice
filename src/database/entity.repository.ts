@@ -33,6 +33,11 @@ export abstract class EntityRepository<T extends Document> {
     );
   }
 
+  async create(createEntityData: unknown): Promise<T> {
+    const entity = new this.entityModel(createEntityData);
+    return entity.save();
+  }
+
   async deleteMany(entityFilterQuery: FilterQuery<T>): Promise<boolean> {
     const deleteResult = await this.entityModel.deleteMany(entityFilterQuery);
     return deleteResult.deletedCount >= 1;
