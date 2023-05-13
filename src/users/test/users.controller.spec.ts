@@ -55,11 +55,11 @@ describe('UsersController', () => {
       let user: User;
 
       beforeEach(async () => {
-        user = await usersController.findUser(userStub().userId);
+        user = await usersController.findUser(userStub().email);
       });
 
       test('then il should call userService', () => {
-        expect(usersService.findUser).toHaveBeenCalledWith(userStub().userId);
+        expect(usersService.findUser).toHaveBeenCalledWith(userStub().email);
       });
 
       test('then it should return a user', () => {
