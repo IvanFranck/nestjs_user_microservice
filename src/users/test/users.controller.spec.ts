@@ -49,4 +49,22 @@ describe('UsersController', () => {
       });
     });
   });
+
+  describe('find user', () => {
+    describe('when findUser is called', () => {
+      let user: User;
+
+      beforeEach(async () => {
+        user = await usersController.findUser(userStub().userId);
+      });
+
+      test('then il should call userService', () => {
+        expect(usersService.findUser).toHaveBeenCalledWith(userStub().userId);
+      });
+
+      test('then it should return a user', () => {
+        expect(user).toEqual(userStub());
+      });
+    });
+  });
 });

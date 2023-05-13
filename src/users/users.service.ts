@@ -14,4 +14,10 @@ export class UsersService {
       password: userInfos.password,
     });
   }
+
+  async findUser(userId: string) {
+    return this.userRepository.findOne({
+      userId,
+    });
+  }
 }
