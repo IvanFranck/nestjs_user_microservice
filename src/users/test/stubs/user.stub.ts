@@ -5,5 +5,6 @@ export const userStub = (): User => {
     userId: '111',
     email: 'john@doe.com',
     password: 'mysuperpassword',
+    avatar: 'user_avatar.png',
   };
 };

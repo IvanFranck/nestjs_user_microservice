@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from './dto/create-user.dto';
+import {
+  CreateUserDto,
+  UserAvatarUploadedEventPayload,
+} from './dto/create-user.dto';
 import { UsersRepository } from './users.repository';
 
 @Injectable()
@@ -22,5 +25,19 @@ export class UsersService {
     return this.userRepository.findOne({
       userId,
     });
+  }
+
+  async updateUserAvatar(
+    avatarUrl: UserAvatarUploadedEventPayload,
+  ): Promise<void> {
+    const result = await this.userRepository.findOneAndUpdate(
+      {
+        userId: '2966476d-904c-4ceb-94da-7524716a61fa',
+      },
+      {
+        avatar: avatarUrl.filename,
+      },
+    );
+    console.log('result: ', result);
   }
 }

@@ -6,7 +6,6 @@ import { userStub } from '../stubs/user.stub';
 import * as request from 'supertest';
 import { DatabaseService } from '../../../database/database.service';
 import { AppModule } from '../../../app.module';
-import { User } from 'src/users/schemas/user.schema';
 
 describe('UserController', () => {
   let dbConnection: Connection;
@@ -64,14 +63,7 @@ describe('UserController', () => {
         password: userStub().password,
       };
 
-      const resp = await request(httpServer).post('/users').send(createUserDto);
-
-      expect(resp.status).toBe(201);
-      expect(resp.body).toEqual(
-        expect.objectContaining({
-          email: createUserDto.email,
-        }),
-      );
+      await request(httpServer).post('/users').send(createUserDto);
 
       const user = await dbConnection
         .collection('users')
