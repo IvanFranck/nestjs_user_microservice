@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuid4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import {
@@ -6,6 +6,8 @@ import {
   UserAvatarUploadedEventPayload,
 } from './dto/create-user.dto';
 import { UsersRepository } from './users.repository';
+import { FlattenMaps } from 'mongoose';
+import { User } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
@@ -22,9 +24,17 @@ export class UsersService {
   }
 
   async findUser(userId: string) {
-    return this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       userId,
     });
+
+    if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...result }: FlattenMaps<User> = user.toJSON();
+      return result;
+    } else {
+      throw new NotFoundException('user not found');
+    }
   }
 
   async updateUserAvatar(

@@ -22,7 +22,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findUser(@Param('id') id: string): Promise<User> {
+  async findUser(@Param('id') id: string): Promise<Omit<User, 'password'>> {
     return this.userService.findUser(id);
   }
 
