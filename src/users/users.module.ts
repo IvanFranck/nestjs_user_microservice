@@ -9,7 +9,9 @@ import { RmqModule } from 'src/rmq/rmq.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    RmqModule,
+    RmqModule.register({
+      name: 'USERS_SERVICE',
+    }),
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersRepository],

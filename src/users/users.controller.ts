@@ -35,4 +35,13 @@ export class UsersController {
     await this.userService.updateUserAvatar(data);
     this.rmqService.ack(context);
   }
+
+  @EventPattern('user_authenticated')
+  async handleUserAuthenticated(
+    @Payload() data: any,
+    @Ctx() context: RmqContext,
+  ) {
+    console.log('data user_authenticated', data);
+    this.rmqService.ack(context);
+  }
 }

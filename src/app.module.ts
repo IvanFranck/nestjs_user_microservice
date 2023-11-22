@@ -14,6 +14,7 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         RABBIT_MQ_URI: Joi.string().required(),
         RABBIT_MQ_FILE_UPLOAD_QUEUE: Joi.string().required(),
+        RABBIT_MQ_AUTH_SERVICE_QUEUE: Joi.string().required(),
         PORT: Joi.string().required(),
         DATA_BASE_URI: Joi.string().required(),
       }),

@@ -10,6 +10,7 @@ async function bootstrap() {
   const rmqService = app.get(RmqService);
 
   app.connectMicroservice(rmqService.getOptions(USER_QUEUE));
+  app.connectMicroservice(rmqService.getOptions('AUTH_SERVICE'));
   await app.startAllMicroservices();
   await app.listen(configService.get('PORT'));
 }
